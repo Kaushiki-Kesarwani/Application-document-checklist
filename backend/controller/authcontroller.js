@@ -1,25 +1,32 @@
-import { User } from "../model/authmodel";
 
-export const register = () => {
+import { createNewUser } from "../services/authservices.js";
+
+export const register = async (req,res) => {
   try {
     const { name, email, password } = req.body;
 
-    if (userAlreadyExists(email)) {
-      return res.status(409).json({
-        success: false,
-        message: "user already exists",
-      });
-    }
-
-    const user = createNewUser(name, email, password);
+    const user = await createNewUser({name, email, password});
     return res.status(201).json({
       success: true,
       message: user,
     });
   } catch (err) {
-    return res.json({
+    return res.status(500).json({
       success: false,
       message: err.message,
     });
   }
 };
+
+export const login = async (req,res) =>{
+  try{
+      const { email, password } = req.body;
+       
+      
+  }catch(err){
+     return res.status(500).json({
+      success: false,
+      message: err.message,
+    }); 
+  }
+}
