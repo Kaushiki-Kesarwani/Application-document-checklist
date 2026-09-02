@@ -13,3 +13,7 @@ export const createUser = async({name,email,password})=>{
     });
     return user;
 }
+
+export const findUserById = async(id)=>{
+    return await findById(id).select("-password");
+}
